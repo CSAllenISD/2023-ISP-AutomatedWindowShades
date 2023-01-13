@@ -1,21 +1,21 @@
 # 2023-ISP-AutomatedWindowShades
 
 ## Team Members
-Alan Roybal
+**Alan Roybal**
 <br>
 Github Username: AlanRoybal (Development & Release Engineer)
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;https://www.codermerlin.com/users/alan-roybal/Digital%20Portfolio/index.html
 <br>
 <br>
-Adheesh Katru
+**Adheesh Katru**
 <br>
 Github Username: adheesh-k (Product Manager & QA Engineer)
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;https://www.codermerlin.com/users/adheesh-katru/Digital%20Portfolio/index.html
 <br>
 <br>
-Heng Yi Lee
+**Heng Yi Lee**
 <br>
 Github Username: HengYiLee (Project Manager)
 <br>
