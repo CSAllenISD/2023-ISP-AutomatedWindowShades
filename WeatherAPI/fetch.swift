@@ -54,8 +54,6 @@ func decodeJSONForecast(JSONData: Data){
         print("Temp : \(i.main.temp)")
         print("Temp Max : \(i.main.temp_max)")
         print("Temp Min : \(i.main.temp_min)")
-        print("Feels Like : \(i.main.feels_like)")
-        print("Humidity : \(i.main.humidity)")
         for j in i.weather {
             print("Main : \(j.main)")
             print("Description : \(j.description)")
