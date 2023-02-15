@@ -22,7 +22,6 @@ func decodeJSONData(JSONData: Data){
         if let weatherData = weatherData{
             let weather = weatherData.main
             print(weather.temp!)
-            print(weather.humidity!)
         }
     }
 }
