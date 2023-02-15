@@ -35,8 +35,6 @@ struct Main: Decodable {
     let temp: Float
     let temp_max: Float
     let temp_min: Float
-    let feels_like: Float
-    let humidity: Float
 }
 
 struct Weather2: Decodable {
