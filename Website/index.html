@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Website</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+	<header>
+		<h1>Welcome to My Website</h1>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="index.html">Home</a></li>
+			<li><a href="about.html">About</a></li>
+			<li><a href="contact.html">Contact</a></li>
+		</ul>
+	</nav>
+	<main>
+		<h2>Thermostat</h2>
+		<p>Current temperature: <span id="tempDisplay">75 &deg;F</span></p>
+		<button onclick="decreaseTemp()">-</button>
+		<button onclick="increaseTemp()">+</button>
+		
+		<script>
+			// Define variables to hold the current temperature and the minimum/maximum temperature
+			var currentTemp = 75;
+			var minTemp = 50;
+			var maxTemp = 105;
+			
+			// Function to increase the temperature
+			function increaseTemp() {
+				if (currentTemp < maxTemp) {
+					currentTemp++;
+					updateTemp();
+				}
+			}
+			
+			// Function to decrease the temperature
+			function decreaseTemp() {
+				if (currentTemp > minTemp) {
+					currentTemp--;
+					updateTemp();
+				}
+			}
+			
+			// Function to update the temperature on the page
+			function updateTemp() {
+				document.getElementById("tempDisplay").innerHTML = currentTemp + " &deg;F";
+			}
+		</script>
+	</main>
+	<footer>
+		<p>Copyright © 2023</p>
+	</footer>
+</body>
+</html>
