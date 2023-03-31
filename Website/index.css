@@ -173,7 +173,6 @@ h2{
 /* Image */
 
 .phone{
-  transform: rotate(25deg);
   width: 60%;
   position: absolute;
   right: 23%
