@@ -30,78 +30,83 @@
 		<div class="container-fluid">
     <div class="row">
       <div class="col-lg-6">
-		<div id="thermostat1">
-	<h1>Thermostat 1</h1>
-	<div id="tempDisplay1">Loading...</div>
-	<button id="increaseBtn1">+</button>
-	<button id="decreaseBtn1">-</button>
+		<div class="thermostat">
+      <h2>Thermostat 1</h2>
+      <div class="temperature">
+        <button id="decreaseTemp">-</button>
+        <span id="tempDisplay1"></span>
+        <button id="increaseTemp">+</button>
+      </div>
+    </div>
+    <div class="thermostat">
+      <h2>Thermostat 2</h2>
+      <div class="temperature">
+        <span id="tempDisplay2">Loading...</span>
+      </div>
+    </div>
 </div>
+<script>
+      const thermostat1 = {
+        temperature: 75,
+        minTemp: 65,
+        maxTemp: 105,
+        increaseTemp: function() {
+          if (this.temperature < this.maxTemp) {
+            this.temperature++;
+            document.getElementById("tempDisplay1").innerText = this.temperature + "°F";
+          }
+        },
+        decreaseTemp: function() {
+          if (this.temperature > this.minTemp) {
+            this.temperature--;
+            document.getElementById("tempDisplay1").innerText = this.temperature + "°F";
+          }
+        },
+        adjustTemperature: function() {
+          document.getElementById("tempDisplay1").innerText = this.temperature + "°F";
+        }
+      };
 
-<!-- HTML code for the second thermostat -->
-<div id="thermostat2">
-	<h1>Thermostat 2</h1>
-	<div id="tempDisplay2">Loading...</div>
-</div>
+      // Call the adjustTemperature() method initially to display the default temperature
+      thermostat1.adjustTemperature();
 
-	      <script>
-const API_KEY = 'YOUR_API_KEY_HERE';
-const CITY_ID = 'YOUR_CITY_ID_HERE';
+      // Add click event listeners to the temperature control buttons
+      document.getElementById("increaseTemp").addEventListener("click", function() {
+        thermostat1.increaseTemp();
+      });
 
-// Get temperature data from AccuWeather API
-function getTemperature() {
-	fetch(`https://dataservice.accuweather.com/currentconditions/v1/${CITY_ID}?apikey=${API_KEY}&details=true`)
-		.then(response => response.json())
-		.then(data => {
-			const temperature = data[0].Temperature.Imperial.Value;
-			updateDisplay(temperature);
-		})
-		.catch(error => {
-			console.error('Error fetching temperature:', error);
-		});
-}
+      document.getElementById("decreaseTemp").addEventListener("click", function() {
+        thermostat1.decreaseTemp();
+      });
 
-	      
-// Increase temperature when '+' button is clicked
-function increaseTemperature(tempDisplay) {
-	// Get current temperature and add 1 degree
-	const currentTemp = parseInt(tempDisplay.textContent);
-	const newTemp = currentTemp + 1;
+      const thermostat2 = {
+        apiKey: "your_api_key_here",
+        cityKey: "your_city_key_here",
+        temperature: null,
+        updateTemperature: function() {
+          const xhr = new XMLHttpRequest();
+          const url = `http://dataservice.accuweather.com/currentconditions/v1/${this.cityKey}?apikey=${this.apiKey}`;
+          xhr.open("GET", url, true);
+          xhr.onload = function() {
+            const data = JSON.parse(xhr.responseText);
+            thermostat2.temperature = data[0].Temperature.Imperial.Value;
+            document.getElementById("tempDisplay2").innerText = thermostat2.temperature + "°F";
+          };
+          xhr.onerror = function() {
+            console.log("Error getting temperature data from API");
+          };
+          xhr.send();
+        }
+      };
 
-	// Check if new temperature is within bounds
-	if (newTemp <= 105) {
-		updateDisplay(newTemp, tempDisplay);
-	}
-}
+      // Call the updateTemperature() method initially to fetch temperature data from the API
+      thermostat2.updateTemperature();
 
-// Decrease temperature when '-' button is clicked
-function decreaseTemperature(tempDisplay) {
-	// Get current temperature and subtract 1 degree
-	const currentTemp = parseInt(tempDisplay.textContent);
-	const newTemp = currentTemp - 1;
-
-	// Check if new temperature is within bounds
-	if (newTemp >= 50) {
-		updateDisplay(newTemp, tempDisplay);
-	}
-}
-
-// Fetch temperature data when page loads
-getTemperature();
-
-// Update displays when buttons are clicked
-document.getElementById('increaseBtn1').addEventListener('click', () => {
-	increaseTemperature(document.getElementById('tempDisplay1'));
-});
-
-document.getElementById('decreaseBtn1').addEventListener('click', () => {
-	decreaseTemperature(document.getElementById('tempDisplay1'));
-});
-
-		      // Get temperature data every 10 minutes
-setInterval(() => {
-	getTemperature();
-}, 10 * 60 * 1000); // 10 minutes
-</script>
+      // Refresh temperature data from the API every 10 minutes
+      setInterval(function() {
+        thermostat2.updateTemperature();
+      }, 600000);
+    </script>
 	      </div>
 
       <div class="col-lg-6">
