@@ -43,6 +43,24 @@
 	<div id="tempDisplay2">Loading...</div>
 </div>
 
+	      <script>
+const API_KEY = 'YOUR_API_KEY_HERE';
+const CITY_ID = 'YOUR_CITY_ID_HERE';
+
+// Get temperature data from AccuWeather API
+function getTemperature() {
+	fetch(`https://dataservice.accuweather.com/currentconditions/v1/${CITY_ID}?apikey=${API_KEY}&details=true`)
+		.then(response => response.json())
+		.then(data => {
+			const temperature = data[0].Temperature.Imperial.Value;
+			updateDisplay(temperature);
+		})
+		.catch(error => {
+			console.error('Error fetching temperature:', error);
+		});
+}
+
+	      
 // Increase temperature when '+' button is clicked
 function increaseTemperature(tempDisplay) {
 	// Get current temperature and add 1 degree
@@ -79,6 +97,10 @@ document.getElementById('decreaseBtn1').addEventListener('click', () => {
 	decreaseTemperature(document.getElementById('tempDisplay1'));
 });
 
+		      // Get temperature data every 10 minutes
+setInterval(() => {
+	getTemperature();
+}, 10 * 60 * 1000); // 10 minutes
 </script>
 	      </div>
 
