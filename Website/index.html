@@ -30,38 +30,56 @@
 		<div class="container-fluid">
     <div class="row">
       <div class="col-lg-6">
-		<h2>Thermostat</h2>
-		<p>Current temperature: <span id="tempDisplay">75 &deg;F</span></p>
-		<button onclick="decreaseTemp()">-</button>
-		<button onclick="increaseTemp()">+</button>
-		
-		<script>
-			// Define variables to hold the current temperature and the minimum/maximum temperature
-			var currentTemp = 75;
-			var minTemp = 50;
-			var maxTemp = 105;
-			
-			// Function to increase the temperature
-			function increaseTemp() {
-				if (currentTemp < maxTemp) {
-					currentTemp++;
-					updateTemp();
-				}
-			}
-			
-			// Function to decrease the temperature
-			function decreaseTemp() {
-				if (currentTemp > minTemp) {
-					currentTemp--;
-					updateTemp();
-				}
-			}
-			
-			// Function to update the temperature on the page
-			function updateTemp() {
-				document.getElementById("tempDisplay").innerHTML = currentTemp + " &deg;F";
-			}
-		</script>
+		<div id="thermostat1">
+	<h1>Thermostat 1</h1>
+	<div id="tempDisplay1">Loading...</div>
+	<button id="increaseBtn1">+</button>
+	<button id="decreaseBtn1">-</button>
+</div>
+
+<!-- HTML code for the second thermostat -->
+<div id="thermostat2">
+	<h1>Thermostat 2</h1>
+	<div id="tempDisplay2">Loading...</div>
+</div>
+
+// Increase temperature when '+' button is clicked
+function increaseTemperature(tempDisplay) {
+	// Get current temperature and add 1 degree
+	const currentTemp = parseInt(tempDisplay.textContent);
+	const newTemp = currentTemp + 1;
+
+	// Check if new temperature is within bounds
+	if (newTemp <= 105) {
+		updateDisplay(newTemp, tempDisplay);
+	}
+}
+
+// Decrease temperature when '-' button is clicked
+function decreaseTemperature(tempDisplay) {
+	// Get current temperature and subtract 1 degree
+	const currentTemp = parseInt(tempDisplay.textContent);
+	const newTemp = currentTemp - 1;
+
+	// Check if new temperature is within bounds
+	if (newTemp >= 50) {
+		updateDisplay(newTemp, tempDisplay);
+	}
+}
+
+// Fetch temperature data when page loads
+getTemperature();
+
+// Update displays when buttons are clicked
+document.getElementById('increaseBtn1').addEventListener('click', () => {
+	increaseTemperature(document.getElementById('tempDisplay1'));
+});
+
+document.getElementById('decreaseBtn1').addEventListener('click', () => {
+	decreaseTemperature(document.getElementById('tempDisplay1'));
+});
+
+</script>
 	      </div>
 
       <div class="col-lg-6">
