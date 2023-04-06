@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>My Website</title>
+	<title>Automatic Window Shades</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://kit.fontawesome.com/bbf15990ab.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Bad+Script|Montserrat:400,900|Ubuntu&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
+	<section id="title">
 	<header>
-		<h1>Welcome to My Website</h1>
+		<h1>Welcome to Glare</h1>
 	</header>
 	<nav>
+		<div>
+           <h1><a href="#"><img src="http://placehold.it/100x40" alt="logo"></a></h1>
+       </div>
 		<ul>
 			<li><a href="index.html">Home</a></li>
 			<li><a href="about.html">About</a></li>
@@ -16,6 +27,9 @@
 		</ul>
 	</nav>
 	<main>
+		<div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6">
 		<h2>Thermostat</h2>
 		<p>Current temperature: <span id="tempDisplay">75 &deg;F</span></p>
 		<button onclick="decreaseTemp()">-</button>
@@ -48,7 +62,138 @@
 				document.getElementById("tempDisplay").innerHTML = currentTemp + " &deg;F";
 			}
 		</script>
+	      </div>
+
+      <div class="col-lg-6">
+        <img src="images/logo.png" class="phone" alt="logo-mockup">
+      </div>
+
+    </div>
 	</main>
+		</section>
+		</div>
+		 <!-- Features -->
+
+  <section id="features">
+
+  <div class="row">
+    <div class="col-lg-4 feature-content">
+      <i class="fas fa-check-circle icon fa-3x icon"></i>
+      <h3 style="color:#696464; font-weight:bold; font-family: 'Montserrat', sans-serif;">Easy to use</h3>
+      <p style="color:#63707e;">Control with the click of a button.</p>
+   </div>
+   <div class="col-lg-4 feature-content">
+     <i class="fas fa-bullseye icon fa-3x icon"></i>
+     <h3 style="color:#696464; font-weight:bold; font-family: 'Montserrat', sans-serif;">Elite Clientele</h3>
+     <p style="color:#63707e;">Make your home look like its out of Architectural Digest.</p>
+   </div>
+    <div class="col-lg-4 feature-content">
+      <i class="fas fa-donate fa-3x icon"></i>
+      <h3 class="GTW">Guaranteed to work</h3>
+      <p style="color:#63707e;">Naturally command the temperature of your home.</p>
+    </div>
+  </div>
+
+  </section>
+
+
+  <!-- Testimonials -->
+
+  <section id="testimonials">
+
+<div id="testimonial-carousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+
+    <div class="carousel-item active">
+      <h2>Helps me cool down after grading digital portfolios.</h2>
+      <img class="testimonial-img" src="images/benyaakov.jpg" alt="ben-profile">
+    </div>
+
+  </div>
+    <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+</div>
+
+</section>
+
+  <!-- Pricing -->
+
+  <section id="pricing">
+
+    <h2 class="pricing-text">A Plan for Every Home</h2>
+    <p class="sent1">Simple and affordable price plans for you and your window.</p>
+
+
+
+    <div class="card-deck mb-3 text-center">
+
+      <div class="col-lg-4 col-md-6">
+        <div class="card mb-10 shadow-sm">
+           <div class="card-header">
+            <h3>Townhouse</h3>
+          </div>
+          <div class="card-body">
+            <h2>$79.99</h2>
+            <p>Classic Glare Window Shade</p>
+            <p>Choice From Our Vast Select Colorline</p>
+            <p>24/7 Customer Service</p>
+            <button type="button" class="btn btn-lg btn-block btn-outline-dark initial-2-cards"><i class="fas fa-sign-in-alt"></i> Sign Up</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-4 col-md-6">
+        <div class="card mb-10 shadow-sm">
+          <div class="card-header">
+            <h3>Bungalow</h3>
+          </div>
+          <div class="card-body">
+            <h2>$119.99</h2>
+            <p>Premium Glare Window Shade</p>
+            <p>Free Consultation</p>
+            <p>24/7 Premium Customer Service</p>
+            <button type="button" class="btn btn-lg btn-block btn-outline-dark initial-2-cards"><i class="fas fa-sign-in-alt"></i> Sign Up</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card mb-10 shadow-sm">
+           <div class="card-header">
+            <h3>Suite</h3>
+          </div>
+          <div class="card-body">
+            <h2>$199.99</h2>
+            <p>Exclusive Glare Window Shade</p>
+            <p>Quality Consultation</p>
+            <p>Customisable Color Choice</p>
+            <p>24/7 Premium Customer Service w/ Priority</p>
+            <button type="button" class="btn btn-lg btn-block btn-outline-dark"><i class="fas fa-sign-in-alt"></i> Sign Up</button>
+          </div>
+        </div>
+      </div>
+
+
+
+  </div>
+
+</section>
+
+
+  <!-- Call to Action -->
+
+  <section id="cta">
+
+    <h3 class="end-line">Glare at Your KDA, Not the Sun.</h3>
+    <button type="button" class="btn btn-dark btn-lg Download"><i class="fab fa-apple"></i> Apple Store</button>
+    <button type="button" class="btn btn-outline-light btn-lg Download"><i class="fab fa-google-play"></i> Google Play</button>
+
+  </section>
 	<footer>
 		<p>Copyright © 2023</p>
 	</footer>
