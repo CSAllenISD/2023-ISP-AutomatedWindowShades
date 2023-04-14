@@ -28,10 +28,15 @@ def read_temp_and_turn_motor():
         # get the temperature from the response
         weather_info = response.json()[0]
         temperature = weather_info['Temperature']['Imperial']['Value']
-        # if the temperature is greater than 105 degrees, turn the motor
+        # if the temperature is greater than 105 degrees, turn the motor forward
         if temperature > 105:
             pwm.ChangeDutyCycle(100)
             GPIO.output(18, GPIO.HIGH)
+        # if the temperature is less than 65 degrees, turn the motor backward
+        elif temperature < 65:
+            pwm.ChangeDutyCycle(100)
+            GPIO.output(18, GPIO.LOW)
+        # otherwise, turn the motor off
         else:
             pwm.ChangeDutyCycle(0)
             GPIO.output(18, GPIO.LOW)
