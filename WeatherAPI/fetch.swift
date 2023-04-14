@@ -3,10 +3,10 @@ import requests
 import RPi.GPIO as GPIO
 
 # replace YOUR_API_KEY with your AccuWeather API key
-api_key = 'YOUR_API_KEY'
+api_key = 'K0TkPze2GFdijIUp5Fmv98YwdrAE2CPf'
 
 # replace YOUR_LOCATION with the location you want to get weather information for
-location = 'YOUR_LOCATION'
+location = '75002'
 
 # create the URL for the API request
 url = f'http://dataservice.accuweather.com/currentconditions/v1/{location}?apikey={api_key}'
