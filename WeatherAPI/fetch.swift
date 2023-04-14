@@ -1,97 +1,50 @@
-import UIKit
-import Foundation
+import time
+import requests
+import RPi.GPIO as GPIO
 
-let apiKey = "need to add"
+# replace YOUR_API_KEY with your AccuWeather API key
+api_key = 'YOUR_API_KEY'
 
-let data: Data? = """
-  {"coord":{"lon":-80,"lat":40.44},"weather":[{"id":804,"main":"Clouds","description":"overcast clouds","icon":"04d"}],"base":"stations","main":{"temp":41.5,"feels_like":36.81,"temp_min":37.4,"temp_max":45,"pressure":1021,"humidity":80},"visibility":16093,"wind":{"speed":3.04,"deg":79},"clouds":{"all":90},"dt":1585068301,"sys":{"type":1,"id":3510,"country":"US","sunrise":1585048554,"sunset":1585092969},"timezone":-14400,"id":5206379,"name":"Pittsburgh","cod":200}
-  """.data(using: .utf8)
+# replace YOUR_LOCATION with the location you want to get weather information for
+location = 'YOUR_LOCATION'
 
-struct Weather: Codable {
-    var temp: Double?
-    var humidity: Double?
-}
+# create the URL for the API request
+url = f'http://dataservice.accuweather.com/currentconditions/v1/{location}?apikey={api_key}'
 
-struct WeatherMain: Codable{
-    let main: Weather
-}
+# set up GPIO pins for motor control
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(17, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
+pwm = GPIO.PWM(17, 100)
+pwm.start(0)
 
-func decodeJSONData(JSONData: Data){
-    do{
-        let weatherData = try? JSONDecoder().decode(WeatherMain.self, from: JSONData)
-        if let weatherData = weatherData{
-            let weather = weatherData.main
-            print(weather.temp!)
-        }
-    }
-}
+# create a function to read the temperature from the API and turn the motor
+def read_temp_and_turn_motor():
+    # make the API request
+    response = requests.get(url)
+    # if the request was successful
+    if response.status_code == 200:
+        # get the temperature from the response
+        weather_info = response.json()[0]
+        temperature = weather_info['Temperature']['Imperial']['Value']
+        # if the temperature is greater than 105 degrees, turn the motor forward
+        if temperature > 105:
+            pwm.ChangeDutyCycle(100)
+            GPIO.output(18, GPIO.HIGH)
+        # if the temperature is less than 65 degrees, turn the motor backward
+        elif temperature < 65:
+            pwm.ChangeDutyCycle(100)
+            GPIO.output(18, GPIO.LOW)
+        # otherwise, turn the motor off
+        else:
+            pwm.ChangeDutyCycle(0)
+            GPIO.output(18, GPIO.LOW)
+    else:
+        # if the request was not successful, print an error message
+        print('Error:', response.status_code)
 
-struct WeatherData: Decodable {
-    let list: [List]
-}
-
-struct Main: Decodable {
-    let temp: Float
-    let temp_max: Float
-    let temp_min: Float
-}
-
-struct Weather2: Decodable {
-    let main: String
-    let description: String
-    let icon: String
-}
-
-struct List: Decodable {
-    let main: Main
-    let weather: [Weather2]
-}
-
-func decodeJSONForecast(JSONData: Data){
-    let response = try! JSONDecoder().decode(WeatherData.self, from: JSONData)
-
-    for i in response.list {
-        print("Temp : \(i.main.temp)")
-        print("Temp Max : \(i.main.temp_max)")
-        print("Temp Min : \(i.main.temp_min)")
-        for j in i.weather {
-            print("Main : \(j.main)")
-            print("Description : \(j.description)")
-            print("Icon : \(j.icon)")
-        }
-    }
-}
-
-func pullJSONData(url: URL?, forecast: Bool){
-    let task = URLSession.shared.dataTask(with: url!) { data, response, error in
-        if let error = error {
-            print("Error : \(error.localizedDescription)")
-        }
-
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            print("Error : HTTP Response Code Error")
-            return
-        }
-
-        guard let data = data else {
-            print("Error : No Response")
-            return
-        }
-
-        if (!forecast){
-            decodeJSONData(JSONData: data)
-        } else {
-            decodeJSONForecast(JSONData: data)
-        }
-    }
-    task.resume()
-}
-
-let city: String = "Allen"
-let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apiKey)&units=imperial")
-
-pullJSONData(url: url, forecast: false)
-
-let url2 = URL(string: "http://api.openweathermap.org/data/2.5/forecast?q=pittsburgh&appid=\(apiKey)&units=imperial")
-
-pullJSONData(url: url2, forecast: true)
+# repeat the function call every 5 seconds
+while True:
+    read_temp_and_turn_motor()
+    time.sleep(5)
