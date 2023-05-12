@@ -50,16 +50,19 @@
         temperature: 75,
         minTemp: 60,
         maxTemp: 100,
+	      //sets thermostat min and maxs
         increaseTemp: function() {
           if (this.temperature < this.maxTemp) {
             this.temperature++;
             document.getElementById("tempDisplay1").innerText = this.temperature + "°F";
+		  //updates thermostat when buttons pressed
           }
         },
         decreaseTemp: function() {
           if (this.temperature > this.minTemp) {
             this.temperature--;
             document.getElementById("tempDisplay1").innerText = this.temperature + "°F";
+		  //updates thermostat when buttons pressed
           }
         },
         adjustTemperature: function() {
@@ -69,6 +72,7 @@
 
       // Call the adjustTemperature() method initially to display the default temperature
       thermostat1.adjustTemperature();
+	//updates displayed temperature from tempDisplay1
 
       // Add click event listeners to the temperature control buttons
       document.getElementById("increaseTemp").addEventListener("click", function() {
