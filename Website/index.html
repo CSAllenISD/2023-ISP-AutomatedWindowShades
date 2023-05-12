@@ -80,32 +80,28 @@
       });
 
       const thermostat2 = {
-        apiKey: "K0TkPze2GFdijIUp5Fmv98YwdrAE2CPf",
-        cityKey: "349625",
-        temperature: null,
-        updateTemperature: function() {
-          const xhr = new XMLHttpRequest();
-          const url = `http://dataservice.accuweather.com/currentconditions/v1/${this.cityKey}?apikey=${this.apiKey}`;
-          xhr.open("GET", url, true);
-          xhr.onload = function() {
-            const data = JSON.parse(xhr.responseText);
-            thermostat2.temperature = data[0].Temperature.Imperial.Value;
-            document.getElementById("tempDisplay2").innerText = thermostat2.temperature + "°F";
-          };
-          xhr.onerror = function() {
-            console.log("Error getting temperature data from API");
-          };
-          xhr.send();
-        }
-      };
+  apiKey: "K0TkPze2GFdijIUp5Fmv98YwdrAE2CPf",
+  cityKey: "349625", // Allen, Texas city key
+  temperature: null,
+  updateTemperature: function() {
+    const url = `https://dataservice.accuweather.com/currentconditions/v1/${this.cityKey}?apikey=${this.apiKey}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        this.temperature = data[0].Temperature.Imperial.Value;
+        document.getElementById("tempDisplay2").innerText = this.temperature + "°F";
+      })
+      .catch(error => console.log("Error getting temperature data from API", error));
+  }
+};
 
-      // Call the updateTemperature() method initially to fetch temperature data from the API
-      thermostat2.updateTemperature();
+// Call the updateTemperature() method initially to fetch temperature data from the API
+thermostat2.updateTemperature();
 
-      // Refresh temperature data from the API every 10 minutes
-      setInterval(function() {
-        thermostat2.updateTemperature();
-      }, 600000);
+// Refresh temperature data from the API every 10 minutes
+setInterval(function() {
+  thermostat2.updateTemperature();
+}, 600000);
     </script>
 	      </div>
 
