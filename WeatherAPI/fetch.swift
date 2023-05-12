@@ -2,11 +2,11 @@ import time
 import requests
 import RPi.GPIO as GPIO
 
-# replace YOUR_API_KEY with your AccuWeather API key
+# accuweather api key
 api_key = 'K0TkPze2GFdijIUp5Fmv98YwdrAE2CPf'
 
-# replace YOUR_LOCATION with the location you want to get weather information for
-location = '2237190'
+# allen city code
+location = '349625'
 
 # create the URL for the API request
 url = f'http://dataservice.accuweather.com/currentconditions/v1/{location}?apikey={api_key}'
@@ -29,13 +29,16 @@ def read_temp_and_turn_motor():
         weather_info = response.json()[0]
         temperature = weather_info['Temperature']['Imperial']['Value']
         # if the temperature is greater than 105 degrees, turn the motor forward
-        if temperature > 105:
+var counter = 0
+        if temperature > 105 && counter > 0:
             pwm.ChangeDutyCycle(100)
             GPIO.output(18, GPIO.HIGH)
+counter -= 1
         # if the temperature is less than 65 degrees, turn the motor backward
-        elif temperature < 65:
+        elif temperature < 65 && counter == 0:
             pwm.ChangeDutyCycle(100)
             GPIO.output(18, GPIO.LOW)
+counter += 1
         # otherwise, turn the motor off
         else:
             pwm.ChangeDutyCycle(0)
