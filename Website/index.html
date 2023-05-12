@@ -29,7 +29,7 @@
 	<main>
 		<div class="container-fluid">
     <div class="row">
-      <div class="col-lg-6">
+      <div class="center">
 		<div class="thermostat">
       <h2>Thermostat 1</h2>
       <div class="temperature">
@@ -48,8 +48,8 @@
 <script>
       const thermostat1 = {
         temperature: 75,
-        minTemp: 65,
-        maxTemp: 105,
+        minTemp: 60,
+        maxTemp: 100,
         increaseTemp: function() {
           if (this.temperature < this.maxTemp) {
             this.temperature++;
@@ -102,11 +102,10 @@ thermostat2.updateTemperature();
 setInterval(function() {
   thermostat2.updateTemperature();
 }, 600000);
-
     </script>
 	      </div>
 
-      <div class="col-lg-6">
+      <div class="center">
         <img src="images/logo.png" class="phone" alt="logo-mockup">
       </div>
 
