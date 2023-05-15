@@ -50,16 +50,19 @@
         temperature: 75,
         minTemp: 60,
         maxTemp: 100,
+	      //sets thermostat min and maxs
         increaseTemp: function() {
           if (this.temperature < this.maxTemp) {
             this.temperature++;
             document.getElementById("tempDisplay1").innerText = this.temperature + "°F";
+		  //updates thermostat when buttons pressed
           }
         },
         decreaseTemp: function() {
           if (this.temperature > this.minTemp) {
             this.temperature--;
             document.getElementById("tempDisplay1").innerText = this.temperature + "°F";
+		  //updates thermostat when buttons pressed
           }
         },
         adjustTemperature: function() {
@@ -69,6 +72,7 @@
 
       // Call the adjustTemperature() method initially to display the default temperature
       thermostat1.adjustTemperature();
+	//updates displayed temperature from tempDisplay1
 
       // Add click event listeners to the temperature control buttons
       document.getElementById("increaseTemp").addEventListener("click", function() {
@@ -81,31 +85,33 @@
 
       const thermostat2 = {
         apiKey: "K0TkPze2GFdijIUp5Fmv98YwdrAE2CPf",
-        cityKey: "2237190",
-        temperature: null,
-        updateTemperature: function() {
-          const xhr = new XMLHttpRequest();
-          const url = `http://dataservice.accuweather.com/currentconditions/v1/${this.cityKey}?apikey=${this.apiKey}`;
-          xhr.open("GET", url, true);
-          xhr.onload = function() {
-            const data = JSON.parse(xhr.responseText);
-            thermostat2.temperature = data[0].Temperature.Imperial.Value;
-            document.getElementById("tempDisplay2").innerText = thermostat2.temperature + "°F";
-          };
-          xhr.onerror = function() {
-            console.log("Error getting temperature data from API");
-          };
-          xhr.send();
-        }
-      };
+	      //accuweather api key
+          cityKey: "349625", // Allen, Texas city key
+	      //specific temperature data for allen
+  temperature: null,
+  updateTemperature: function() {
+    const url = `https://dataservice.accuweather.com/currentconditions/v1/${this.cityKey}?apikey=${this.apiKey}`;
+    fetch(url)
+	  //fetches temperature data from accuweather api
+      .then(response => response.json())
+      .then(data => {
+        this.temperature = data[0].Temperature.Imperial.Value;
+        document.getElementById("tempDisplay2").innerText = this.temperature + "°F";
+	    //sets tempDisplay2 to temperature data from api
+      })
+      .catch(error => console.log("Error getting temperature data from API", error));
+	  //error incase api cannot send temperature data
+  }
+};
 
-      // Call the updateTemperature() method initially to fetch temperature data from the API
-      thermostat2.updateTemperature();
+// Call the updateTemperature() method initially to fetch temperature data from the API
+thermostat2.updateTemperature();
 
-      // Refresh temperature data from the API every 10 minutes
-      setInterval(function() {
-        thermostat2.updateTemperature();
-      }, 600000);
+// Refresh temperature data from the API every 10 minutes
+setInterval(function() {
+  thermostat2.updateTemperature();
+}, 600000);
+
     </script>
 	      </div>
 
@@ -154,16 +160,6 @@
       <img class="testimonial-img" src="images/benyaakov.jpg" alt="ben-profile">
     </div>
 	
-	  <div class="carousel-item active">
-      <h2>From day to night, these shades are always on point.</h2>
-      <img class="testimonial-img" src="images/benyaakov.jpg" alt="ben-profile">
-    </div>
-	  
-	  <div class="carousel-item active">
-      <h2>My home was feeling a bit shady, but these window shades brightened things up.</h2>
-      <img class="testimonial-img" src="images/benyaakov.jpg" alt="ben-profile">
-    </div>
-
   </div>
     <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon"></span>
